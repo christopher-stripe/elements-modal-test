@@ -1,0 +1,57 @@
+.PaymentForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.PaymentForm__field {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1 0 100%;
+}
+
+.PaymentForm__field.PaymentForm__cvcField,
+.PaymentForm__field.PaymentForm__expiryField {
+  flex: 0 0 calc(50% - 4px);
+}
+
+.PaymentForm__field.PaymentForm__expiryField {
+  margin-right: 4px;
+}
+
+.PaymentForm__field.PaymentForm__cvcField {
+  margin-left: 4px;
+}
+
+.PaymentForm__field:not(:first-child) {
+  margin-top: 12px;
+}
+
+.PaymentForm__field .StripeElement,
+.PaymentForm__input {
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 4px;
+  font-weight: 400;
+  font-family: inherit;
+}
+
+.PaymentForm__input {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+}
+
+.PaymentForm__actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 1 100%;
+}
+
+.PaymentForm__action {
+  display: block;
+  margin-left: 5px;
+}
