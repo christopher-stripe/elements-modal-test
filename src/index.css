@@ -42,3 +42,7 @@ button:hover {
 .App {
   padding: 20px;
 }
+
+.App > button {
+  margin-right: 8px;
+}

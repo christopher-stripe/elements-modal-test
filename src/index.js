@@ -1,6 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from "./App";
+import "./index.css";
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PK);
+
+ReactDOM.render(
+  <Elements stripe={stripePromise}>
+    <App />
+  </Elements>,
+  document.getElementById("root")
+);

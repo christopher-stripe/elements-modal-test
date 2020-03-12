@@ -5,19 +5,20 @@ import "@reach/dialog/styles.css";
 import PaymentForm from "./PaymentForm";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  // One of 'CLOSED' | 'COMBINED_ELEMENT' | 'SPLIT_ELEMENTS' | 'NO_ELEMENTS'
+  const [dialogState, setDialogState] = useState("CLOSED");
 
+  // Close the modal if the escape key is pressed
   const handleKeyUp = useCallback(
     e => {
-      if (isOpen && e.keyCode === 27) {
-        setIsOpen(false);
+      if (dialogState !== "CLOSED" && e.keyCode === 27) {
+        setDialogState("CLOSED");
       }
     },
-    [isOpen, setIsOpen]
+    [dialogState, setDialogState]
   );
 
+  // Bind the escape key handler to the `document`
   useEffect(() => {
     document.addEventListener("keyup", handleKeyUp);
 
@@ -28,13 +29,24 @@ function App() {
 
   return (
     <main className="App">
-      <button onClick={handleOpen}>Open dialog</button>
+      <button onClick={() => setDialogState("COMBINED_ELEMENT")}>
+        Open combined card elements dialog
+      </button>
+      <button onClick={() => setDialogState("SPLIT_ELEMENTS")}>
+        Open split card elements dialog
+      </button>
+      <button onClick={() => setDialogState("NO_ELEMENTS")}>
+        Open non-elements dialog
+      </button>
       <Dialog
-        isOpen={isOpen}
-        onDismiss={handleClose}
+        isOpen={dialogState !== "CLOSED"}
+        onDismiss={() => setDialogState("CLOSED")}
         aria-label="A payment form"
       >
-        <PaymentForm onCancel={handleClose} />
+        <PaymentForm
+          impl={dialogState}
+          onCancel={() => setDialogState("CLOSED")}
+        />
       </Dialog>
     </main>
   );
